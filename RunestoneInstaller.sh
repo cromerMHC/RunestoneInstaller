@@ -4,20 +4,20 @@
 #note down the starting directory
 #------------
 
-startDir=$PWD
+startDir=$('pwd')
 
 
 #------------
 #install required programs
 #------------
 
-sudo apt-get update
-sudo apt-get -y install curl python3-pip unzip
-sudo apt-get -y install libfreetype6-dev
-sudo apt-get -y install postgresql-common postgresql postgresql-contrib
-sudo apt-get -y install libpq-dev
-sudo apt-get -y install libxml2-dev libxslt1-dev
-sudo apt-get -y install redis-server
+sudo usr/bin/apt-get update
+sudo /usr/bin/apt-get install -y curl python3-pip unzip libfreetype6-dev postgresql-common postgresql postgresql-contrib libpq-dev libxml2-dev libxslt1-dev redis-server
+# sudo apt-get -y install libfreetype6-dev
+# sudo apt-get -y install postgresql-common postgresql postgresql-contrib
+# sudo apt-get -y install libpq-dev
+# sudo apt-get -y install libxml2-dev libxslt1-dev
+# sudo apt-get -y install redis-server
 
 
 #------------
@@ -64,18 +64,18 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
 
 #------------
-Create main RS directory
+# Create main RS directory
 #------------
 
-mkdir Runestone
-cd Runestone
+/bin/mkdir "$startDir"/Runestone
+cd "$startDir"/Runestone
 
 
 #------------
 #install runestone & rsmanage
 #------------
 
-pip3 install runestone
+/usr/bin/pip3 install runestone
 
 
 #------------
@@ -153,7 +153,12 @@ runestone deploy
 #------------
 cd ~/Runestone/web2py
 
-read -p 'Server IP Address: ' serverIP
+#-------------
+## don't ask the user for IP address, ask the computer!
+##read -p 'Server IP Address: ' serverIP
+#-------------
+
+serverIP=$(ifconfig | grep 'inet ' | sed -n 2p | awk '{print $2}')
 
 echo "
 #!/bin/bash
@@ -164,18 +169,18 @@ export DBUSER=$uservar
 export DBPASS='$passvar'
 export DBHOST=localhost
 export DBNAME=runestone
-echo "Be sure to activate your virtual environment"
+echo 'Be sure to activate your virtual environment'
 source $startDir/Runestone/web2py/bin/activate
 python web2py.py --ip=$serverIP --port=8000 --password='<recycle>' -K runestone --nogui -X  &
-" > start
+" > start.sh
 
-chmod +x start
+chmod +x start.sh
 
 
 
-echo Runestone Academy installation Finished!
+echo 'Runestone Academy installation Finished!'
 echo
-echo Logout and back in for changes to take effect.
-echo Start Runestone by going to $startDir/Runestone/web2py and type ./start
+echo 'Logout and back in for changes to take effect.'
+echo 'Start Runestone by going to '"$startDir"'/Runestone/web2py and type ./start.sh'
 
 #./start
