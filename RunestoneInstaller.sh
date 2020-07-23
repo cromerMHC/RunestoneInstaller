@@ -12,7 +12,7 @@ startDir=$('pwd')
 #------------
 
 sudo usr/bin/apt-get update
-sudo /usr/bin/apt-get install -y git curl python3-pip unzip libfreetype6-dev postgresql-common postgresql postgresql-contrib libpq-dev libxml2-dev libxslt1-dev redis-server
+sudo /usr/bin/apt-get install -y net-tools git curl python3-pip unzip libfreetype6-dev postgresql-common postgresql postgresql-contrib libpq-dev libxml2-dev libxslt1-dev redis-server
 # sudo apt-get -y install libfreetype6-dev
 # sudo apt-get -y install postgresql-common postgresql postgresql-contrib
 # sudo apt-get -y install libpq-dev
