@@ -40,7 +40,7 @@
 part1File=~/.runestonept1Done
 
 if [ ! -f "$part1File" ]; then
-
+	sudo apt-get update
 	sudo apt-get -y install git net-tools docker.io docker-compose npm
 
 
